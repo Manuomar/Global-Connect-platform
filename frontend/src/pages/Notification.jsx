@@ -59,11 +59,11 @@ function Notification() {
   }, []);
 
   return (
-    <div className="w-screen min-h-screen bg-gradient-to-br from-[#1A1F71] to-[#2C2C2C] pt-[80px] px-[20px] flex flex-col items-center">
+    <div className=" min-h-screen bg-gradient-to-br from-[#1A1F71] to-[#2C2C2C] pt-[80px] px-[20px] flex flex-col items-center">
       <Nav />
 
       {/* Top Bar */}
-      <div className="w-full max-w-[900px] sticky top-[80px] z-10 bg-white shadow-lg rounded-lg flex items-center p-4 text-lg text-gray-700 justify-between mt-5">
+      <div className="w-full max-w-[900px] sticky top-[80px] z-10 bg-white shadow-lg rounded-lg flex items-center p-4 text-lg text-gray-700 justify-between mt-5  ">
         <span className="font-semibold">
           Notifications ({notificationData.length})
         </span>
@@ -79,7 +79,7 @@ function Notification() {
 
       {/* Notification List */}
       {notificationData.length > 0 ? (
-        <div className="w-full max-w-[900px] bg-white shadow-lg rounded-lg flex flex-col divide-y divide-gray-200 mt-4">
+        <div className="w-full max-w-[900px] bg-white shadow-lg rounded-lg flex flex-col divide-y divide-gray-200 mt-4  mb-10">
           {notificationData.map((noti, index) => (
             <div
               key={index}

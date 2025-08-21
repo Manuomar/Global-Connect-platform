@@ -8,7 +8,7 @@ import Network from './pages/Network'
 import Profile from './pages/Profile'
 import Notification from './pages/Notification'
 import JobBoard from './pages/JobBoard'
-import JobForm from './pages/JobForm'
+import ApplyForm from './pages/ApplyForm'
 import Nav from './components/Nav'
 import ChatPage from './pages/ChatPage'
 
@@ -23,9 +23,13 @@ function App() {
     <Route path='/profile' element={userData?<Profile/>:<Navigate to="/login"/>}/>
     <Route path='/notification' element={userData?<Notification/>:<Navigate to="/login"/>}/>
     <Route path='/chat' element={<ChatPage/>}/>
-     <Route path="/jobs" element={<JobBoard />} />
-    <Route path='/jobs/new' element={<JobForm/>}/>
-  
+
+
+     {/* <Route path="/jobs" element={<JobBoard />} />
+    <Route path='/jobs/new' element={<ApplyForm/>}/> */}
+  <Route path="/jobs" element={<JobBoard />} />
+      {/* Apply Form now has :id param */}
+      <Route path='/jobs/:id' element={<ApplyForm />} />
    </Routes>
   )
 }

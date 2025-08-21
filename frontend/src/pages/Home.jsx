@@ -140,7 +140,15 @@ function Home() {
         {/* Posts */}
         {postData.map((post, index) => (
           <div key={index} className="bg-[#1A1F71] rounded-2xl p-4 shadow-lg">
-            <Post {...post} />
+            <Post
+  id={post._id}
+  description={post.description}
+  author={post.author}
+  image={post.image}
+  like={post.like}
+  comment={post.comment}
+  createdAt={post.createdAt}
+/>
           </div>
         ))}
       </div>
