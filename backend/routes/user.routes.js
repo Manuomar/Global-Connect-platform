@@ -1,5 +1,5 @@
 import express from "express"
-import { getCurrentUser, getprofile, getSuggestedUser, search, updateProfile } from "../controllers/user.controllers.js"
+import { getCurrentUser, getprofile, getSuggestedUser, search, updateProfile } from "../controllers/user.controller.js"
 import isAuth from "../middlewares/isAuth.js"
 import upload from "../middlewares/multer.js"
 

@@ -1,5 +1,5 @@
 import express from "express"
-import { acceptConnection, getConnectionRequests, getConnectionStatus, getUserConnections, rejectConnection, removeConnection, sendConnection } from "../controllers/connection.controllers.js"
+import { acceptConnection, getConnectionRequests, getConnectionStatus, getUserConnections, rejectConnection, removeConnection, sendConnection } from "../controllers/connection.controller.js"
 import isAuth from "../middlewares/isAuth.js"
 let connectionRouter=express.Router()
 

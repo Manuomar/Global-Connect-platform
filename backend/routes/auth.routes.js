@@ -1,5 +1,5 @@
 import express from "express"
-import { login, logOut, signUp } from "../controllers/auth.controllers.js"
+import { login, logOut, signUp } from "../controllers/auth.controller.js"
 
 let authRouter=express.Router()
 

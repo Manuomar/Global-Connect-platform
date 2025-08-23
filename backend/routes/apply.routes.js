@@ -1,6 +1,6 @@
 // routes/applyRoutes.js
 import express from "express";
-import { createApplication } from "../controllers/apply.Controller.js";
+import { createApplication } from "../controllers/apply.controller.js";
 
 const router = express.Router();
 
