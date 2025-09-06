@@ -1,3 +1,4 @@
+
 import express from "express";
 import dotenv from "dotenv";
 import connectDb from "./config/db.js";
@@ -12,53 +13,57 @@ import { Server } from "socket.io";
 import notificationRouter from "./routes/notification.routes.js";
 import aiRoutes from "./routes/ai.routes.js";
 import jobRoutes from "./routes/job.routes.js";
-import applyRoutes from './routes/apply.routes.js';
+import applyRoutes from './routes/apply.routes.js'
+
+
 
 dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
 
-// ✅ CORS for frontend (update this to your deployed frontend URL)
-const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
+// Socket.IO setup
+export const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173",
+    credentials: true,
+  },
+});
 
-app.use(cors({
-  origin: FRONTEND_URL,
-  credentials: true,
-}));
-
-// ✅ Middleware
+// Middleware
 app.use(express.json());
 app.use(cookieParser());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
-// ✅ API Routes
+const port = process.env.PORT || 5000;
+
+// API routes
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/post", postRouter);
 app.use("/api/connection", connectionRouter);
 app.use("/api/notification", notificationRouter);
 app.use("/api/jobs", jobRoutes);
-app.use("/api", applyRoutes);
 app.use("/api/ai", aiRoutes);
 
-// ✅ Socket.IO Setup
-export const io = new Server(server, {
-  cors: {
-    origin: FRONTEND_URL,
-    credentials: true,
-  },
-});
-
+// Map to store userId -> socketId
 export const userSocketMap = new Map();
 
 io.on("connection", (socket) => {
   console.log("New user connected:", socket.id);
 
+  // Register user with their ID
   socket.on("register", (userId) => {
     userSocketMap.set(userId, socket.id);
     console.log(`User registered: ${userId} -> ${socket.id}`);
   });
 
+  // Handle private messages
   socket.on("send_message", ({ senderId, receiverId, text }) => {
     const receiverSocketId = userSocketMap.get(receiverId);
     if (receiverSocketId) {
@@ -70,6 +75,7 @@ io.on("connection", (socket) => {
     }
   });
 
+  // On disconnect
   socket.on("disconnect", () => {
     for (let [userId, sId] of userSocketMap.entries()) {
       if (sId === socket.id) {
@@ -81,10 +87,12 @@ io.on("connection", (socket) => {
   });
 });
 
-// ✅ Start the Server (corrected PORT usage)
-const PORT = process.env.PORT || 8000;
 
-server.listen(PORT, () => {
+app.use("/api/jobs", jobRoutes);
+app.use("/api", applyRoutes);
+
+// Start server
+server.listen(port, () => {
   connectDb();
-  console.log(`✅ Server started on port ${PORT}`);
+  console.log(`Server started on port ${port}`);
 });

@@ -11,7 +11,7 @@ import { userDataContext } from '../context/userContext';
 import { io } from "socket.io-client"
 import ConnectionButton from './ConnectionButton';
 
-let socket = io(`${import.meta.env.VITE_API_URL}`);
+let socket = io("http://localhost:8000");
 
 function Post({ id, author, like, comment, description, image, createdAt }) {
   let [more, setMore] = useState(false);
