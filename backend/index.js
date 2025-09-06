@@ -87,7 +87,9 @@ io.on("connection", (socket) => {
   });
 });
 
-
+app.get("/", (req, res) => {
+  res.send("✅ Global Connect API is running successfully!");
+});
 app.use("/api/jobs", jobRoutes);
 app.use("/api", applyRoutes);
 
