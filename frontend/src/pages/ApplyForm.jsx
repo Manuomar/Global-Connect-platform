@@ -18,11 +18,11 @@ export default function ApplyForm() {
     skills: "",
     Description: ""
   });
-
+const api = import.meta.env.VITE_BACKEND_URL;
   useEffect(() => {
     const fetchJob = async () => {
       try {
-        const res = await axios.get(`http://localhost:8000/api/jobs/${id}`);
+        const res = await axios.get(`${api}/api/jobs/${id}`);
         setJobTitle(res.data.title);
       } catch (err) {
         toast.error("Failed to load job details", {
@@ -41,7 +41,7 @@ export default function ApplyForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8000/api/apply", {
+      await axios.post(`${api}/api/apply`, {
         ...form,
         jobId: id,
         jobTitle

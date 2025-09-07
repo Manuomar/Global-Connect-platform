@@ -11,7 +11,8 @@ import { userDataContext } from '../context/userContext';
 import { io } from "socket.io-client"
 import ConnectionButton from './ConnectionButton';
 
-let socket = io("http://localhost:8000");
+// let socket = io("http://localhost:8000");
+let socket = io(import.meta.env.VITE_BACKEND_URL);
 
 function Post({ id, author, like, comment, description, image, createdAt }) {
   let [more, setMore] = useState(false);

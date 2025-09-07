@@ -16,9 +16,9 @@ function AIChat() {
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setLoading(true);
-
+const api = import.meta.env.VITE_BACKEND_URL;
     try {
-      const res = await axios.post("http://localhost:8000/api/ai/get-res", { code: input });
+      const res = await axios.post(`${api}/api/ai/get-res`, { code: input });
       const aiText = res.data?.reply || "Sorry, I couldn’t respond.";
       setMessages((prev) => [...prev, { from: "ai", text: aiText }]);
     } catch (error) {
